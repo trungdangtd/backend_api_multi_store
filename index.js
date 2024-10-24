@@ -1,10 +1,7 @@
 //omport express module
 const express = require('express');
-
-const helloRouter = require('./route/hello');
-
 const mongoose = require('mongoose');
-
+const authRouter = require('./routes/auth');
 //defind the port number the sever listen to
 const PORT = 3000;
 
@@ -12,10 +9,9 @@ const PORT = 3000;
 const app = express();
 //mongodb string 
 const DB = "mongodb+srv://trungdang1301:Abc13012003@cluster0.hqygj.mongodb.net/"
-
-
 //middleware - to register routes or to mount the routes
-app.use(helloRouter);
+app.use(express.json());
+app.use(authRouter);
 
 mongoose.connect(DB).then(()=>{
     console.log("Connection successful");
