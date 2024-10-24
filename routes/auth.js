@@ -1,6 +1,6 @@
 const express = require('express');
 const User = require('../models/user');
-
+const bcrypt = require('bcryptjs');
 const authRouter = express.Router();
 
 authRouter.post('/api/signup', async (req, res) => {
@@ -11,7 +11,10 @@ authRouter.post('/api/signup', async (req, res) => {
         if (existingEmail) {
             res.status(400).json({ msg: "Email đã tồn tại" });
         } else {
-            var user = new User({ fullname, email, password });
+            //mã hoá mật khẩu
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(password, salt);
+            var user = new User({ fullname, email, password: hashedPassword });
             user = await user.save();
             res.json({ user });
         }
