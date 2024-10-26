@@ -20,3 +20,5 @@ mongoose.connect(DB).then(()=>{
 app.listen(PORT,"0.0.0.0", function(){
     console.log(`Server is running on port ${PORT}`);
 })
+
+//terminal : "node index.js" to run 
